@@ -1,0 +1,16 @@
+{
+  "name": "todo-console",
+  "version": "0.0.1",
+  "description": "Todo console app",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm install",
+    "run": "node index.js",
+    "auto run": "nodemon index.js"
+  },
+  "author": "AlbertoVf",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
