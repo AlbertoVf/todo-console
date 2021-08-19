@@ -22,5 +22,14 @@ class Tareas {
         const t = new Tarea(desc);
         this._listado[t.id] = t;
     }
+
+    get listadoArray() {
+        const l = [];
+        Object.keys(this._listado).forEach((key) => {
+            const tarea = this._listado[key];
+            l.push(tarea);
+        });
+        return l;
+    }
 }
 module.exports = Tareas;
