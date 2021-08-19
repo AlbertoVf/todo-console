@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "package install": "npm install",
-    "run": "node index.js",
-    "auto run": "nodemon index.js"
+    "run": "node app/index.js",
+    "auto run": "nodemon app/index.js"
   },
   "author": "AlbertoVf",
   "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
     "inquirer": "^8.1.2",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "uuid": "^8.3.2"
   }
 }
