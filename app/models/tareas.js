@@ -4,12 +4,12 @@ const { v4: uudiv4 } = require('uuid');
 class Tarea {
     id = '';
     desc = '';
-    fechaCompletado = null;
+    fechaCompletado = false;
 
     constructor(desc) {
         this.id = uudiv4();
         this.desc = desc;
-        this.fechaCompletado = null;
+        this.fechaCompletado = false;
     }
 }
 class Tareas {
@@ -34,6 +34,23 @@ class Tareas {
     loadTareasArray(tareas = []) {
         tareas.forEach((tarea) => {
             this._listado[tarea.id] = tarea;
+        });
+    }
+    listAll() {
+        this.toArray.forEach((tarea, i) => {
+            const index = `(${i + 1})`.bold.blue;
+            const { desc, fechaCompletado } = tarea;
+            const estado = fechaCompletado ? '(Completada)'.green : '(Pendiente)'.yellow;
+            console.log(`\t${index} ${desc} ${estado}`);
+        });
+    }
+    listCompleted(completed = null) {
+        const c = this.toArray.filter((tarea) => tarea.fechaCompletado == completed);
+
+        c.forEach((tarea) => {
+            const { desc, fechaCompletado } = tarea;
+            let d = `[${fechaCompletado}]`.bold.blue;
+            console.log(`${d} ${desc}`);
         });
     }
 }
