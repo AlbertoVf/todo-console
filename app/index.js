@@ -1,14 +1,14 @@
 const { inquirerMenu, pause, readInput } = require('./models/inquirer');
-const Tareas = require('./models/tareas');
+const TaskList = require('./models/tasks');
 const { saveDB, readDB } = require('./models/database');
 
 const main = async () => {
     let opt = '';
-    const tareas = new Tareas();
+    const tasklist = new TaskList();
     const db = readDB();
 
     if (db) {
-        tareas.loadTareasArray(db);
+        tasklist.loadTareasArray(db);
     }
     await pause();
     do {
@@ -16,25 +16,25 @@ const main = async () => {
         switch (opt) {
             case '1':
                 const desc = await readInput('Descripcion: ');
-                tareas.createTarea(desc);
+                tasklist.createTarea(desc);
                 break;
             case '2':
-                tareas.listAll();
+                tasklist.listAll();
                 break;
             case '3':
-                tareas.listCompleted((completed = true));
+                tasklist.listByCompleted((completed = true));
                 break;
             case '4':
-                tareas.listCompleted((completed = false));
+                tasklist.listByCompleted((completed = false));
                 break;
             case '5':
-                //todo completar tareas
+                //todo completar tasklist
                 break;
             case '6':
-                //todo: borrar tareas
+                //todo: borrar tasklist
                 break;
         }
-        saveDB(tareas.toArray);
+        saveDB(tasklist.toArray);
         await pause();
     } while (opt !== '0');
 };
