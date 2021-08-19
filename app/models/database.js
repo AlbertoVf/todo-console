@@ -9,8 +9,9 @@ const readDB = () => {
     if (!fs.existsSync(file)) {
         return null;
     }
-    const info = fs.readFileSync(file, { encoding: 'utf-8' });
-    return JSON.parse(info);
+    const info = fs.readFileSync(file, { encoding: 'UTF-8' });
+    const data = JSON.parse(info);
+    return data;
 };
 
 module.exports = { saveDB, readDB };

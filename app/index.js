@@ -1,20 +1,25 @@
 const { inquirerMenu, pause, readInput } = require('./models/inquirer');
 const Tareas = require('./models/tareas');
+const { saveDB, readDB } = require('./models/database');
 
 const main = async () => {
     let opt = '';
     const tareas = new Tareas();
+    const db = readDB();
+
+    if (db) {
+        tareas.loadTareasArray(db);
+    }
+    await pause();
     do {
         opt = await inquirerMenu();
-        console.log(opt);
         switch (opt) {
             case '1':
                 const desc = await readInput('Descripcion: ');
                 tareas.createTarea(desc);
                 break;
             case '2':
-                //todo: listaer tareas
-                console.log(tareas._listado);
+                console.log(tareas.toArray);
                 break;
             case '3':
                 //todo: tareas completadas
@@ -29,6 +34,7 @@ const main = async () => {
                 //todo: borrar tareas
                 break;
         }
+        saveDB(tareas.toArray);
         await pause();
     } while (opt !== '0');
 };
