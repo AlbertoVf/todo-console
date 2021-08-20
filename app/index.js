@@ -1,4 +1,4 @@
-const { inquirerMenu, pause, readInput } = require('./models/inquirer');
+const { inquirerMenu, pause, readInput, menuDelete, confirm } = require('./models/inquirer');
 const TaskList = require('./models/tasks');
 const { saveDB, readDB } = require('./models/database');
 
@@ -8,7 +8,7 @@ const main = async () => {
     const db = readDB();
 
     if (db) {
-        tasklist.loadTareasArray(db);
+        tasklist.loadTaskArray(db);
     }
     await pause();
     do {
@@ -16,7 +16,7 @@ const main = async () => {
         switch (opt) {
             case '1':
                 const desc = await readInput('Descripcion: ');
-                tasklist.createTarea(desc);
+                tasklist.createTask(desc);
                 break;
             case '2':
                 tasklist.listAll();
@@ -31,7 +31,17 @@ const main = async () => {
                 //todo completar tasklist
                 break;
             case '6':
-                //todo: borrar tasklist
+                const id = await menuDelete(tasklist.toArray);
+
+                if (id !== '0') {
+                    const ok = await confirm('Estas seguro de ue deseas borrarlo?');
+                    if (ok) {
+                        tasklist.deleteTask(id);
+                        console.log('Tarea borrada');
+                    } else {
+                        console.log('No se ha borrado ninguna tarea');
+                    }
+                }
                 break;
         }
         saveDB(tasklist.toArray);

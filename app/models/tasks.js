@@ -19,11 +19,11 @@ class TaskList {
         this._list = {};
     }
 
-    createTarea(desc = '') {
+    createTask(desc = '') {
         const t = new Task(desc);
         this._list[t.id] = t;
     }
-    deleteTarea(id) {
+    deleteTask(id) {
         if (this._list[id]) {
             delete this._list[id];
         }
@@ -38,7 +38,7 @@ class TaskList {
         return l;
     }
 
-    loadTareasArray(tareas = []) {
+    loadTaskArray(tareas = []) {
         tareas.forEach((tarea) => {
             this._list[tarea.id] = tarea;
         });
@@ -53,7 +53,7 @@ class TaskList {
         });
     }
 
-    listByCompleted(completed = null) {
+    listByCompleted(completed = false) {
         const c = this.toArray.filter((tarea) => tarea.finished == completed);
 
         c.forEach((tarea) => {
