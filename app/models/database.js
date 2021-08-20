@@ -10,8 +10,8 @@ const readDB = () => {
         return null;
     }
     const info = fs.readFileSync(file, { encoding: 'UTF-8' });
-    const data = JSON.parse(info);
-    return data;
+
+    return JSON.parse(info);
 };
 
 module.exports = { saveDB, readDB };

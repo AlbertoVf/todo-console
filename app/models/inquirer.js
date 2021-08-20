@@ -60,10 +60,10 @@ const readInput = async (message) => {
 
 const menuDelete = async (tasks = []) => {
     const choices = tasks.map((task, i) => {
-        const index = `${i + 1}`.green;
-        return { value: task.id, name: `${index} ${task.desc}` };
+        const index = `${i + 2}`.green;
+        return { value: task.id, name: `${index} ${task.description}` };
     });
-    choices.unshift({ value: '0', name: '0 Cancelar'.red });
+    choices.unshift({ value: '1', name: '1 Cancelar'.red });
     const question = [{ type: 'list', name: 'id', message: 'Borrar', choices }];
     const { id } = await inquirer.prompt(question);
     return id;
@@ -75,4 +75,14 @@ const confirm = async (message) => {
     return ok;
 };
 
-module.exports = { inquirerMenu, pause, readInput, menuDelete, confirm };
+const menuCheck = async (tasks = []) => {
+    const choices = tasks.map((task, i) => {
+        const index = `${i + 1}`.green;
+        return { value: task.id, name: `${index} ${task.description}`, checked: task.finished };
+    });
+    const question = [{ type: 'checkbox', name: 'ids', message: 'Selecciona', choices }];
+    const { ids } = await inquirer.prompt(question);
+    return ids;
+};
+
+module.exports = { inquirerMenu, pause, readInput, menuDelete, confirm, menuCheck };

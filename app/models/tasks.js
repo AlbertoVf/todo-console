@@ -1,33 +1,15 @@
 const { v4: uudiv4 } = require('uuid');
 
 class Task {
-    id = '';
-    desc = '';
-    finished = false;
-
-    constructor(desc) {
+    constructor(description) {
         this.id = uudiv4();
-        this.desc = desc;
-        this.dateCreated = new Date().toUTCString();
-        this.finished = false;
-        this.dateFinished = null;
+        this.description = description;
+        this.created = new Date().toUTCString();
+        this.finished = null;
     }
 }
 class TaskList {
     _list = {};
-    constructor() {
-        this._list = {};
-    }
-
-    createTask(desc = '') {
-        const t = new Task(desc);
-        this._list[t.id] = t;
-    }
-    deleteTask(id) {
-        if (this._list[id]) {
-            delete this._list[id];
-        }
-    }
 
     get toArray() {
         const l = [];
@@ -38,32 +20,55 @@ class TaskList {
         return l;
     }
 
+    constructor() {
+        this._list = {};
+    }
+
+    createTask(description = '') {
+        const t = new Task(description);
+        this._list[t.id] = t;
+    }
+
+    deleteTask(id) {
+        if (this._list[id]) delete this._list[id];
+    }
+
     loadTaskArray(tareas = []) {
         tareas.forEach((tarea) => {
             this._list[tarea.id] = tarea;
         });
     }
 
-    listAll() {
-        this.toArray.forEach((tarea, i) => {
-            const { desc, finished, dateCreated, dateFinished } = tarea;
+    listByCompleted(state = 0) {
+        let c = [];
+        switch (state) {
+            case 1:
+                c = this.toArray.filter((tarea) => tarea.finished != null); // task finished
+                break;
+            case 2:
+                c = this.toArray.filter((tarea) => tarea.finished == null); // task not finished
+                break;
+            default:
+                c = this.toArray; // all task
+        }
+        c.forEach((tarea) => {
+            const { description, created, finished } = tarea;
             finished
-                ? console.log(` (Finalizada) [${dateCreated} - ${dateFinished}] ${desc}`.bold.green)
-                : console.log(` (Procesando) [${dateCreated}] ${desc}`.bold.red);
+                ? console.log(` [${created} - ${finished}] ${description}`.bold.green)
+                : console.log(` [${created}] ${description}`.bold.red);
         });
     }
 
-    listByCompleted(completed = false) {
-        const c = this.toArray.filter((tarea) => tarea.finished == completed);
-
-        c.forEach((tarea) => {
-            const { desc, finished, dateCreated, dateFinished } = tarea;
-
-            if (finished == false) {
-                console.log(`[${dateCreated}] ${desc}`.bold.red);
+    changeFinished(ids = []) {
+        ids.forEach((id) => {
+            const task = this._list[id];
+            if (!task.finished) {
+                task.finished = new Date().toUTCString();
             }
-            if (finished == true) {
-                console.log(` [${dateCreated} - ${dateFinished}] ${desc}`.bold.green);
+        });
+        this.toArray.forEach((task) => {
+            if (!ids.includes(task.id)) {
+                this._list[task.id].finished = null; // unchecked
             }
         });
     }

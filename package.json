@@ -1,6 +1,6 @@
 {
   "name": "todo-console",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Todo console app",
   "main": "index.js",
   "scripts": {
