@@ -1,6 +1,6 @@
-const { todoMenu, pause, readInput, deleteMenu, confirm, checkMenu, modifyMenu } = require('./models/inquirer');
-const TaskList = require('./models/tasks');
-const { saveDB, readDB } = require('./models/database');
+const { todoMenu, pause, readInput, deleteMenu, confirm, checkMenu, modifyMenu } = require('./app/models/inquirer');
+const TaskList = require('./app/models/tasks');
+const { saveDB, readDB } = require('./app/models/database');
 
 const main = async () => {
     let opt = '';

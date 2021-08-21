@@ -1,19 +1,26 @@
 {
   "name": "todo-console",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Todo console app",
   "main": "index.js",
   "scripts": {
-    "package install": "npm install",
-    "run": "node app/index.js",
-    "auto run": "nodemon app/index.js"
+    "configure": "npm install",
+    "start": "node index.js",
+    "developer": "nodemon index.js"
   },
+  "keywords": [
+    "todo",
+    "console",
+    "node"
+  ],
   "author": "AlbertoVf",
   "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
     "inquirer": "^8.1.2",
-    "nodemon": "^2.0.12",
     "uuid": "^8.3.2"
+  },
+  "dev-dependencies": {
+    "nodemon": "^2.0.12"
   }
 }
