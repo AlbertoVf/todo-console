@@ -6,9 +6,7 @@ const saveDB = (data) => {
 };
 
 const readDB = () => {
-    if (!fs.existsSync(file)) {
-        return null;
-    }
+    if (!fs.existsSync(file)) return null;
     const info = fs.readFileSync(file, { encoding: 'UTF-8' });
 
     return JSON.parse(info);

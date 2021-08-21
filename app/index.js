@@ -1,18 +1,18 @@
-const { inquirerMenu, pause, readInput, menuDelete, confirm, menuCheck } = require('./models/inquirer');
+const { todoMenu, pause, readInput, deleteMenu, confirm, checkMenu, modifyMenu } = require('./models/inquirer');
 const TaskList = require('./models/tasks');
 const { saveDB, readDB } = require('./models/database');
 
 const main = async () => {
     let opt = '';
+    let id = '';
     const tasklist = new TaskList();
     const db = readDB();
 
-    if (db) {
-        tasklist.loadTaskArray(db);
-    }
+    if (db) tasklist.loadTaskArray(db);
+
     await pause();
     do {
-        opt = await inquirerMenu();
+        opt = await todoMenu();
         switch (opt) {
             case '1':
                 const desc = await readInput('Descripcion: ');
@@ -28,14 +28,13 @@ const main = async () => {
                 tasklist.listByCompleted((state = 2)); // not finished
                 break;
             case '5':
-                //todo completar tasklist
-                const ids = await menuCheck(tasklist.toArray);
+                const ids = await checkMenu(tasklist.toArray);
                 tasklist.changeFinished(ids);
                 break;
             case '6':
-                const id = await menuDelete(tasklist.toArray);
+                id = await deleteMenu(tasklist.toArray);
                 if (id !== '0') {
-                    const ok = await confirm('Estas seguro de ue deseas borrarlo?');
+                    const ok = await confirm('Estas seguro de que deseas borrarlo?');
                     if (ok) {
                         tasklist.deleteTask(id);
                         console.log('Tarea borrada');
@@ -44,8 +43,19 @@ const main = async () => {
                     }
                 }
                 break;
+            case '7':
+                id = await modifyMenu(tasklist.toArray);
+                if (id !== '0') {
+                    const ok = await confirm('Estas seguro de que deseas modificar?');
+                    if (ok) {
+                        tasklist.changeDescription(id, await readInput('Descripcion: '));
+                        console.log('Tarea Modificada');
+                    } else {
+                        console.log('No se ha modificado ninguna tarea');
+                    }
+                }
             default:
-                console.log('Cerrando TODO'.yellow)
+                console.log('Cerrando'.yellow);
                 break;
         }
         if (opt == '1' || opt == '5' || opt == '6') saveDB(tasklist.toArray);

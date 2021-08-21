@@ -33,8 +33,8 @@ class TaskList {
         if (this._list[id]) delete this._list[id];
     }
 
-    loadTaskArray(tareas = []) {
-        tareas.forEach((tarea) => {
+    loadTaskArray(task = []) {
+        task.forEach((tarea) => {
             this._list[tarea.id] = tarea;
         });
     }
@@ -71,6 +71,12 @@ class TaskList {
                 this._list[task.id].finished = null; // unchecked
             }
         });
+    }
+
+    changeDescription(id,newDescription) {
+        console.log(`Actual: ${this._list[id].description}`)
+        console.log(`Nueva: ${newDescription}`)
+        if (this._list[id]) this._list[id].description=newDescription;
     }
 }
 module.exports = TaskList;
