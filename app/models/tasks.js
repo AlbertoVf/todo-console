@@ -1,13 +1,14 @@
 const { v4: uudiv4 } = require('uuid');
 
 class Task {
-    constructor(description) {
+    constructor(description = '') {
         this.id = uudiv4();
         this.description = description;
         this.created = new Date().toUTCString();
         this.finished = null;
     }
 }
+
 class TaskList {
     _list = {};
 
@@ -73,10 +74,10 @@ class TaskList {
         });
     }
 
-    changeDescription(id,newDescription) {
-        console.log(`Actual: ${this._list[id].description}`)
-        console.log(`Nueva: ${newDescription}`)
-        if (this._list[id]) this._list[id].description=newDescription;
+    changeDescription(id, newDescription) {
+        console.log(`Actual: ${this._list[id].description}`);
+        console.log(`Nueva: ${newDescription}`);
+        if (this._list[id]) this._list[id].description = newDescription;
     }
 }
 module.exports = TaskList;

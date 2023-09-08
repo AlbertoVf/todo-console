@@ -51,7 +51,7 @@ const todoMenu = async () => {
                 { value: '5', name: `${'5.'.green} Completar tareas` },
                 { value: '6', name: `${'6.'.green} Borrar tarea` },
                 { value: '7', name: `${'7.'.green} Modificar tarea` },
-                { value: '0', name: `${'0.'.green} Salir` },
+                { value: '8', name: `${'8.'.green} Salir` },
             ],
         },
     ];

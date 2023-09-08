@@ -10,13 +10,11 @@ const main = async () => {
 
     if (db) tasklist.loadTaskArray(db);
 
-    await pause();
     do {
         opt = await todoMenu();
         switch (opt) {
             case '1':
                 const desc = await readInput('Descripcion: ');
-                tasklist.createTask(desc);
                 break;
             case '2':
                 tasklist.listByCompleted(); // all
@@ -54,13 +52,13 @@ const main = async () => {
                         console.log('No se ha modificado ninguna tarea');
                     }
                 }
-            default:
+            case '8':
                 console.log('Cerrando'.yellow);
                 break;
         }
         if (opt == '1' || opt == '5' || opt == '6') saveDB(tasklist.toArray);
         await pause();
-    } while (opt !== '0');
+    } while (opt !== '8');
 };
 
 main();

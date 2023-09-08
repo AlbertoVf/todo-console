@@ -6,7 +6,8 @@
   "scripts": {
     "configure": "npm install",
     "start": "node index.js",
-    "developer": "nodemon index.js"
+    "developer": "nodemon index.js",
+    "format": "prettier --write '**/*.js'"
   },
   "keywords": [
     "todo",
@@ -22,5 +23,8 @@
   },
   "dev-dependencies": {
     "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3"
   }
 }
